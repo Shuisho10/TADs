@@ -9,8 +9,7 @@ public:
     PilaD(const PilaD<T>& P);   //Constructor de copia
     const T& tope() const;      //Elemento del primer nodo
     bool vacia() const;         //Verifica que la pila esta vacia
-
-    const T& pop();                    //Saca un elemento de la pila y devuelve el valor del tope
+    T pop();                    //Saca un elemento de la pila y devuelve el valor del tope
     void push(const T& n);             //Mete un elemento a la pila
     ~PilaD();                   //Destructor
 private:
@@ -65,10 +64,10 @@ const T& PilaD<T>::tope() const
 
 //Pop
 template <typename T>
-const T& PilaD<T>::pop()
+T PilaD<T>::pop()
 {
     assert(!vacia());   //No debe estar vacia para realizar esta funcion
-    const T& store = tope();   //Guarda el elemento para el return
+    T store = tope();   //Guarda el elemento para el return
     nodo* q=p;          //Guarda el puntero del nodo que queremos eliminar
     p = p->siguiente;   //El puntero salta al siguiente nodo
     delete q;           //El nodo anterior es eliminado
