@@ -6,11 +6,12 @@ class PilaD
 {
 public:
     PilaD();                    //Constructor por defecto
-    PilaD(const PilaD<T>& P);    //Constructor de copia
-    const T& tope() const;                   //Elemento del primer nodo
+    PilaD(const PilaD<T>& P);   //Constructor de copia
+    const T& tope() const;      //Elemento del primer nodo
     bool vacia() const;         //Verifica que la pila esta vacia
-    T pop();                    //Saca un elemento de la pila y devuelve el valor del tope
-    void push(T n);             //Mete un elemento a la pila
+
+    const T& pop();                    //Saca un elemento de la pila y devuelve el valor del tope
+    void push(const T& n);             //Mete un elemento a la pila
     ~PilaD();                   //Destructor
 private:
     //struct nodo: enlazar un elemento con otro de forma dinamica.
@@ -51,7 +52,7 @@ bool PilaD<T>::vacia() const
 
 //Push
 template <typename T>
-void PilaD<T>::push(T n)
+void PilaD<T>::push(const T& n)
 {
     p = new nodo(n,p); //Crea un nuevo nodo generado con el elemento al que apunta al que esta apuntando p y p apunte a este.
 }
@@ -64,10 +65,10 @@ const T& PilaD<T>::tope() const
 
 //Pop
 template <typename T>
-T PilaD<T>::pop()
+const T& PilaD<T>::pop()
 {
     assert(!vacia());   //No debe estar vacia para realizar esta funcion
-    T store = tope();   //Guarda el elemento para el return
+    const T& store = tope();   //Guarda el elemento para el return
     nodo* q=p;          //Guarda el puntero del nodo que queremos eliminar
     p = p->siguiente;   //El puntero salta al siguiente nodo
     delete q;           //El nodo anterior es eliminado
