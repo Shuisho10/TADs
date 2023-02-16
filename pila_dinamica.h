@@ -5,13 +5,20 @@ template <typename T>
 class PilaD
 {
 public:
-    PilaD();                    //Constructor por defecto
-    PilaD(const PilaD<T>& P);   //Constructor de copia
-    const T& tope() const;      //Elemento del primer nodo
-    bool vacia() const;         //Verifica que la pila esta vacia
-    T pop();                    //Saca un elemento de la pila y devuelve el valor del tope
-    void push(const T& n);             //Mete un elemento a la pila
-    ~PilaD();                   //Destructor
+    //Funciones constructoras
+    PilaD();                            //Constructor por defecto
+    PilaD(const PilaD<T>& P);           //Constructor de copia
+    //Funciones observadoras
+    const T& tope() const;              //Elemento del primer nodo
+    bool vacia() const;                 //Verifica que la pila esta vacia
+    //Funciones modificadoras
+    T pop();                            //Saca un elemento de la pila y devuelve el valor del tope
+    void push(const T& n);              //Mete un elemento a la pila
+    void copia(const PilaD<T>& P);      //Funcion de copia
+    //Operadores
+    PilaD<T>& operator =(const PilaD<T>& P);
+    //Destructor
+    ~PilaD();
 private:
     //struct nodo: enlazar un elemento con otro de forma dinamica.
     struct nodo
@@ -31,16 +38,25 @@ PilaD<T>::PilaD() : p(nullptr) {}
 template <typename T>
 PilaD<T>::PilaD(const PilaD<T>& P) : p(nullptr)
 {
-    p=new nodo(P.tope());
-    nodo* j=p;
-    nodo* k=P.p->siguiente;
-    while(k)
+    copia(P);
+}
+
+//Copia
+template <typename T>
+void PilaD<T>::copia(const PilaD<T>& P)
+{
+    p=new nodo(P.tope());                       //Crea el primer nodo
+    nodo* j=p;                                  //Puntero j hacia la cabecera
+    nodo* k=P.p->siguiente;                     //Puntero k hacia el siguiente nodo
+    while(k)                                    //Mientras haya mas nodos
         {
-            j->siguiente=new nodo(k->data);
-            j=j->siguiente;
-            k=k->siguiente;
+            j->siguiente=new nodo(k->data);     //Crea el nuevo nodo
+            j=j->siguiente;                     //Entra al nuevo nodo
+            k=k->siguiente;                     //Avanza en la pila
         }
 }
+
+
 
 //Vacia
 template <typename T>
@@ -56,6 +72,7 @@ void PilaD<T>::push(const T& n)
     p = new nodo(n,p); //Crea un nuevo nodo generado con el elemento al que apunta al que esta apuntando p y p apunte a este.
 }
 
+//Tope
 template <typename T>
 const T& PilaD<T>::tope() const
 {
@@ -73,6 +90,19 @@ T PilaD<T>::pop()
     delete q;           //El nodo anterior es eliminado
     return store;       //Devuelve el valor correspondiente
 }
+
+//Tope
+template <typename T>
+PilaD<T>& PilaD<T>::operator =(const PilaD<T>& P)
+{
+    if (this != &P)     //Evitar autoasignación
+    {
+        this->~PilaD(); // Vaciar la pila actual
+        copia(P);       //Copia
+    }
+    return *this;       //Devuelve la referencia
+}
+
 
 //Destructor
 template <typename T>

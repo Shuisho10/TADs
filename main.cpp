@@ -6,12 +6,13 @@ using namespace std;
 
 int main()
 {
-    PilaD<int> a;
+    PilaD<int> a,b;
     a.push(getValue<int>());
     a.push(getValue<int>());
     a.push(getValue<int>());
-    cout << a.pop() << endl;
-    cout << a.pop() << endl;
-    cout << a.pop() << endl;
+    b=a;
+    cout << b.pop() << endl;
+    cout << b.pop() << endl;
+    cout << b.pop() << endl;
     return 0;
 }
