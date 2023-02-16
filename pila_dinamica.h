@@ -7,7 +7,7 @@ class PilaD
 public:
     PilaD();                    //Constructor por defecto
     PilaD(const PilaD<T>& P);    //Constructor de copia
-    T tope();                   //Elemento del primer nodo
+    const T& tope() const;                   //Elemento del primer nodo
     bool vacia() const;         //Verifica que la pila esta vacia
     T pop();                    //Saca un elemento de la pila y devuelve el valor del tope
     void push(T n);             //Mete un elemento a la pila
@@ -34,9 +34,11 @@ PilaD<T>::PilaD(const PilaD<T>& P) : p(nullptr)
     p=new nodo(P.tope());
     nodo* j=p;
     nodo* k=P.p->siguiente;
-    while(!P.vacia())
+    while(k)
         {
-
+            j->siguiente=new nodo(k->data);
+            j=j->siguiente;
+            k=k->siguiente;
         }
 }
 
@@ -55,7 +57,7 @@ void PilaD<T>::push(T n)
 }
 
 template <typename T>
-T PilaD<T>::tope()
+const T& PilaD<T>::tope() const
 {
     return p->data;     //Obtenemos el elemento al que apunta p
 }
