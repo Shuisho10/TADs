@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="cola_dinamica.h" />
 		<Unit filename="iotest.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="pila_dinamica.h" />
