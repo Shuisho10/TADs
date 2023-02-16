@@ -1,10 +1,13 @@
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 template <typename T>
-T getValue()
+T getValue(string text="un valor")
 {
-    std::cout << "Introduce un valor: ";
+    cout << "Introduce " << text << ": ";
     T a;
-    std::cin >> a;
+    cin >> a;
     return a;
 }
