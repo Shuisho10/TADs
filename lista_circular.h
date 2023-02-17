@@ -12,7 +12,7 @@ public:
     struct posicion
     {
         T e;
-        posicion* ant,sig;
+        posicion* ant,*sig;
         posicion(posicion* a,posicion* s,T r): ant(a), sig(s), e(r) {}
     };
 
@@ -20,12 +20,12 @@ public:
     ListaCir(); //Constructor
 
     bool vacia() const; //Observador de vacio
-    posicion inipos() const; //Observador del puntero L
+    posicion inipos(); //Observador del puntero L
     const T& elemento(posicion p) const; //Obsetvador de elemento en esa posicion
     posicion siguiente(posicion p) const; //Observador a la siguiente posicion
     posicion anterior(posicion p) const; //Observador a la posicion anterior
 
-    void insertar(const T& x, posicion p=inipos()); //Modificador de insercion
+    void insertar(const T& x, posicion p); //Modificador de insercion
     void eliminar(posicion p); //Modificador de eliminacion
 
     ~ListaCir(); //Destructor
@@ -46,9 +46,9 @@ bool ListaCir<T>::vacia() const
 }
 
 template <typename T>
-typename ListaCir<T>::posicion ListaCir<T>::inipos() const
+typename ListaCir<T>::posicion ListaCir<T>::inipos()
 {
-    return(L_);
+    return(*L_);
 }
 
 template <typename T>
@@ -73,16 +73,6 @@ typename ListaCir<T>::posicion ListaCir<T>::siguiente(posicion p) const
 template <typename T>
 void ListaCir<T>::insertar(const T& x, posicion p)
 {
-    if (p!=POS_NULA)
-    {
-        posicion n = new posicion(p.anterior(),p,x);
-        p.anterior().sig=n;
-        p.ant=n;
-    }
-    else
-    {
-        L_=new posicion(this,this,x);
-    }
 
 }
 
@@ -94,19 +84,19 @@ void ListaCir<T>::eliminar(posicion p)
         L_=p.sig();
     p.siguiente().ant=p.anterior();
     p.anterior().sig=p.siguiente();
-    ~p();
+    delete p;
 }
 
 template <typename T>
 ListaCir<T>::~ListaCir()
 {
-    posicion n;
-    while(n.siguiente()!=n)
+    ListaCir<T>::posicion* n=L_;
+    while(n->sig!=n)
     {
-        L_=n.siguiente();
-        ~n();
+        L_=n->sig;
+        delete n;
     }
-    ~n();
+    delete n;
 }
 
 
