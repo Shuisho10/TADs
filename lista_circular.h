@@ -5,15 +5,16 @@
 template <typename T>
 struct ListaCir
 {
-private:
+public:
+
     struct posicion
     {
         T e;
         posicion* ant,sig;
         posicion(posicion* a,posicion* s,T r): ant(a), sig(s), e(r) {}
     };
-    posicion* L;
-public:
+
+
     ListaCir(); //Constructor
 
     bool vacia() const; //Observador de vacio
@@ -26,6 +27,8 @@ public:
     void eliminar(posicion p); //Modificador de eliminacion
 
     ~ListaCir(); //Destructor
+private:
+    posicion* L;
 };
 
 
