@@ -91,7 +91,7 @@ T PilaD<T>::pop()
     return store;       //Devuelve el valor correspondiente
 }
 
-//Tope
+//Operador =
 template <typename T>
 PilaD<T>& PilaD<T>::operator =(const PilaD<T>& P)
 {
