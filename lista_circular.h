@@ -21,7 +21,7 @@ public:
 
     bool vacia() const; //Observador de vacio
     posicion inipos(); //Observador del puntero L
-    const T& elemento(posicion p) const; //Obsetvador de elemento en esa posicion
+    const T& elemento(posicion p) const; //Observador de elemento en esa posicion
     posicion siguiente(posicion p) const; //Observador a la siguiente posicion
     posicion anterior(posicion p) const; //Observador a la posicion anterior
 
@@ -34,70 +34,75 @@ private:
 };
 
 template <typename T>
-ListaCir<T>::ListaCir() : L_(POS_NULA)
-{
-
-}
+ListaCir<T>::ListaCir():L_(nullptr) {}
 
 template <typename T>
 bool ListaCir<T>::vacia() const
 {
-    return (L_==POS_NULA);
+    return (L_==nullptr);
 }
+
 
 template <typename T>
 typename ListaCir<T>::posicion ListaCir<T>::inipos()
 {
-    return(*L_);
+    return (L_);
 }
 
 template <typename T>
 const T& ListaCir<T>::elemento(posicion p) const
 {
-    return(p.e);
-}
-
-template <typename T>
-typename ListaCir<T>::posicion ListaCir<T>::anterior(posicion p) const
-{
-    return(p->ant);
+    return (p.e);
 }
 
 template <typename T>
 typename ListaCir<T>::posicion ListaCir<T>::siguiente(posicion p) const
 {
+    assert(!vacia());
     return(p->sig);
 }
 
+template <typename T>
+typename ListaCir<T>::posicion ListaCir<T>::anterior(posicion p) const
+{
+    assert(!vacia());
+    return(p->ant);
+}
 
 template <typename T>
 void ListaCir<T>::insertar(const T& x, posicion p)
 {
-
+    if(vacia())
+    {
+        L_=new posicion(L_,L_,x);
+    }
+    else
+    {
+        posicion n = new posicion(p.anterior(),p,x);
+        p.anterior().sig=n;
+        p.ant=n;
+    }
 }
 
 template <typename T>
 void ListaCir<T>::eliminar(posicion p)
 {
-    assert(!vacia());
-    if(L_==p)
-        L_=p.sig();
-    p.siguiente().ant=p.anterior();
+    assert(p!=nullptr);
     p.anterior().sig=p.siguiente();
+    p.siguiente().ant=p.anterior();
+    if(L_==p) L_=p.siguiente();
     delete p;
 }
 
 template <typename T>
 ListaCir<T>::~ListaCir()
 {
-    ListaCir<T>::posicion* n=L_;
-    while(n->sig!=n)
+    posicion q=L_;
+    while (q!=q)
     {
-        L_=n->sig;
-        delete n;
+        q=q.siguiente();
+        delete q.anterior();
     }
-    delete n;
 }
-
 
 #endif // LISTA_DINAMICA_H_INCLUDED
