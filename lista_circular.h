@@ -48,7 +48,7 @@ bool ListaCir<T>::vacia() const
 template <typename T>
 typename ListaCir<T>::posicion ListaCir<T>::inipos()
 {
-    return (L_);
+    return (this.L_);
 }
 
 template <typename T>
@@ -74,10 +74,7 @@ typename ListaCir<T>::posicion ListaCir<T>::anterior(posicion p) const
 template <typename T>
 void ListaCir<T>::insertar(const T& x, posicion p)
 {
-<<<<<<< HEAD
-    if(L_==nullptr)
-        L_=new posicion(L_,L_,x);
-=======
+
     if(vacia())
     {
         L_=new posicion(L_,L_,x);
@@ -88,7 +85,7 @@ void ListaCir<T>::insertar(const T& x, posicion p)
         p.anterior().sig=n;
         p.ant=n;
     }
->>>>>>> 6a34079464be9e4d869da64371ae632c8464c7f8
+
 }
 
 template <typename T>
@@ -104,8 +101,8 @@ void ListaCir<T>::eliminar(posicion p)
 template <typename T>
 ListaCir<T>::~ListaCir()
 {
-    posicion q=L_;
-    while (q!=q)
+    posicion q=inipos();
+    while (&q!=&q)
     {
         q=q.siguiente();
         delete q.anterior();
