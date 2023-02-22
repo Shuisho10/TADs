@@ -12,8 +12,10 @@ public:
     struct posicion
     {
         T e;
-        posicion* ant,*sig;
-        posicion(posicion* a,posicion* s,T r): ant(a), sig(s), e(r) {}
+        posicion* ant;
+        posicion* sig;
+
+        posicion(posicion* a, posicion* s, T r) : ant(a), sig(s), e(r) {}
     };
 
 
@@ -73,7 +75,8 @@ typename ListaCir<T>::posicion ListaCir<T>::siguiente(posicion p) const
 template <typename T>
 void ListaCir<T>::insertar(const T& x, posicion p)
 {
-
+    if(L_==nullptr)
+        L_=new posicion(L_,L_,x);
 }
 
 template <typename T>
